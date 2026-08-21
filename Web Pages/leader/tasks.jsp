@@ -1,0 +1,7 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.*"%><%@page import="model.*"%>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Công việc</title><style>body{font-family:Arial;padding:20px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:8px}input,select{padding:7px;margin:4px}</style></head><body>
+<h2>Quản lý / phân công công việc</h2>
+<form method="post"><input name="name" placeholder="Tên công việc" required><input name="description" placeholder="Mô tả"><input name="startDate" type="date"><input name="endDate" type="date"><select name="assigneeId"><%for(User u:(List<User>)request.getAttribute("users")){%><option value="<%=u.getId()%>"><%=u.getFullName()%></option><%}%></select><select name="projectId"><%for(Project p:(List<Project>)request.getAttribute("projects")){%><option value="<%=p.getId()%>"><%=p.getName()%></option><%}%></select><select name="status"><option value="NOT_STARTED">Chưa bắt đầu</option><option value="IN_PROGRESS">Đang thực hiện</option><option value="COMPLETED">Đã hoàn thành</option></select><button>Phân công</button></form>
+<table><tr><th>Tên</th><th>Dự án</th><th>Nhân viên</th><th>Trạng thái</th><th>Xóa</th></tr><%for(Task t:(List<Task>)request.getAttribute("tasks")){%><tr><td><%=t.getName()%></td><td><%=t.getProjectName()%></td><td><%=t.getAssigneeName()%></td><td><%=t.getStatus()%></td><td><a href="?action=delete&id=<%=t.getId()%>">Xóa</a></td></tr><%}%></table>
+</body></html>
